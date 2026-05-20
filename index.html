@@ -1419,6 +1419,67 @@ footer { background: #0f0f0e; color: rgba(255,255,255,0.4); padding: 52px var(--
   padding-top: 9px !important;
 }
 
+
+/* ── IPHONE SAFARI TOP SAFE-AREA FIX ── */
+/* Stops page content showing above the fixed header on iPhone Safari. */
+@media (max-width: 768px) {
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    overflow-x: hidden;
+    background: var(--white);
+  }
+
+  nav#navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: calc(64px + env(safe-area-inset-top)) !important;
+    padding-top: env(safe-area-inset-top) !important;
+    padding-bottom: 0 !important;
+    z-index: 9999 !important;
+    background: rgba(255,255,255,0.98) !important;
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    transform: translateZ(0);
+  }
+
+  nav#navbar::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav#navbar > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .mobile-menu {
+    top: calc(64px + env(safe-area-inset-top)) !important;
+    z-index: 9998 !important;
+  }
+
+  #hero {
+    padding-top: calc(112px + env(safe-area-inset-top)) !important;
+  }
+
+  section:target {
+    scroll-margin-top: calc(76px + env(safe-area-inset-top));
+  }
+}
+
 </style>
 </head>
 <body>
