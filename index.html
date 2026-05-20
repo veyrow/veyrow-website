@@ -1480,6 +1480,119 @@ footer { background: #0f0f0e; color: rgba(255,255,255,0.4); padding: 52px var(--
   }
 }
 
+
+/* ── CASE STUDY FULL-PAGE MOBILE FIX ── */
+/* Makes case studies behave like a separate full-screen page on iPhone Safari. */
+.cs-overlay {
+  background: var(--white) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.cs-overlay.open {
+  z-index: 20000 !important;
+}
+
+body.case-study-open {
+  overflow: hidden !important;
+  touch-action: none;
+}
+
+@media (max-width: 768px) {
+  body.case-study-open {
+    position: fixed !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  body.case-study-open nav#navbar,
+  body.case-study-open .mobile-menu {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  .cs-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow: hidden !important;
+    background: var(--white) !important;
+    display: block !important;
+    overscroll-behavior: none !important;
+    -webkit-overflow-scrolling: auto !important;
+  }
+
+  .cs-panel {
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    background: var(--white) !important;
+    box-shadow: none !important;
+    transform: translateX(0) !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+
+  .cs-topbar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
+    height: calc(58px + env(safe-area-inset-top)) !important;
+    padding: env(safe-area-inset-top) 18px 0 !important;
+    background: rgba(255,255,255,0.98) !important;
+    border-bottom: 1px solid var(--grey-100) !important;
+    backdrop-filter: blur(24px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  }
+
+  .cs-back {
+    color: var(--ink) !important;
+    font-size: 0.9rem !important;
+    padding: 12px 0 !important;
+  }
+
+  .cs-body {
+    padding: 28px 18px calc(96px + env(safe-area-inset-bottom)) !important;
+    background: var(--white) !important;
+  }
+
+  .cs-hero {
+    margin-top: 0 !important;
+  }
+}
+
+
+/* ── CUSTOM CURSOR ABOVE CASE STUDY OVERLAY FIX ── */
+/* The case-study overlay is intentionally very high so it behaves like a page.
+   This keeps the custom cursor visible above it on desktop. */
+.cursor {
+  z-index: 30002 !important;
+}
+
+.cursor-ring {
+  z-index: 30001 !important;
+}
+
+body.case-study-open .cursor,
+body.case-study-open .cursor-ring {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (max-width: 768px) {
+  body.case-study-open .cursor,
+  body.case-study-open .cursor-ring {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2212,6 +2325,18 @@ document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
 (function tick(){rx+=(mx-rx)*0.28;ry+=(my-ry)*0.28;cur.style.left=mx+'px';cur.style.top=my+'px';curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(tick);})();
 document.querySelectorAll('a,button,.wcard,.svc-card,.tcard,.form-submit,.logo-pill').forEach(el=>{el.addEventListener('mouseenter',()=>{curRing.classList.add('hov');});el.addEventListener('mouseleave',()=>{curRing.classList.remove('hov');});});
 
+// Keep custom cursor hover working for dynamic case-study content too
+document.addEventListener('mouseover', e => {
+  if (e.target.closest('a,button,.wcard,.svc-card,.tcard,.form-submit,.logo-pill')) {
+    curRing.classList.add('hov');
+  }
+});
+document.addEventListener('mouseout', e => {
+  if (e.target.closest('a,button,.wcard,.svc-card,.tcard,.form-submit,.logo-pill')) {
+    curRing.classList.remove('hov');
+  }
+});
+
 // ── Navbar scroll
 const navbar=document.getElementById('navbar');
 window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',scrollY>20);},{passive:true});
@@ -2353,15 +2478,25 @@ function openCase(id){
       <a href="#contact" class="btn btn-white btn-lg" onclick="closeCase()" style="cursor:none;flex-shrink:0">Start Your Project →</a>
     </div>`;
   const ov=document.getElementById('caseOverlay');
-  ov.classList.add('open');ov.setAttribute('aria-hidden','false');
+  const panel=document.getElementById('casePanel');
+  window.__caseScrollY = window.scrollY || window.pageYOffset || 0;
+  ov.classList.add('open');
+  ov.setAttribute('aria-hidden','false');
+  document.body.classList.add('case-study-open');
+  document.body.style.top = `-${window.__caseScrollY}px`;
   document.body.style.overflow='hidden';
-  document.getElementById('casePanel').scrollTop=0;
+  panel.scrollTop=0;
 }
 
 function closeCase(){
   const ov=document.getElementById('caseOverlay');
-  ov.classList.remove('open');ov.setAttribute('aria-hidden','true');
+  const savedY = window.__caseScrollY || 0;
+  ov.classList.remove('open');
+  ov.setAttribute('aria-hidden','true');
+  document.body.classList.remove('case-study-open');
   document.body.style.overflow='';
+  document.body.style.top='';
+  window.scrollTo(0, savedY);
 }
 
 document.getElementById('caseOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('caseOverlay'))closeCase();});
