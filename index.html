@@ -66,9 +66,8 @@ body::after {
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 500;
   height: calc(60px + env(safe-area-inset-top));
-  display: flex; align-items: flex-end; justify-content: space-between;
-  padding: 0 var(--pad) 0;
-  padding-top: env(safe-area-inset-top);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: env(safe-area-inset-top) var(--pad) 0;
   background: rgba(255,255,255,0.72);
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
