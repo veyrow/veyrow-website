@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Veyrow — Websites Built to Make Brands Stand Out</title>
 <meta name="description" content="Veyrow is a premium web design studio crafting high-converting websites for modern brands, startups, and businesses.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,11 +65,13 @@ body::after {
 /* ── NAVBAR ── */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 500;
-  height: 60px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--pad);
+  height: calc(60px + env(safe-area-inset-top));
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 var(--pad) 0;
+  padding-top: env(safe-area-inset-top);
   background: rgba(255,255,255,0.72);
   backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-bottom: 1px solid transparent;
   transition: border-color 0.35s, background 0.35s, box-shadow 0.35s;
 }
@@ -115,7 +117,7 @@ nav.scrolled { border-color: rgba(0,0,0,0.08); background: rgba(255,255,255,0.92
 /* ── HAMBURGER ── */
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: none; padding: 4px; background: none; border: none; }
 .hamburger span { width: 20px; height: 1.5px; background: var(--ink); border-radius: 2px; transition: all 0.3s var(--ease); display: block; }
-.mobile-menu { display: none; position: fixed; top: 60px; left: 0; right: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(24px); padding: 18px var(--pad) 26px; border-bottom: 1px solid var(--grey-100); z-index: 499; flex-direction: column; gap: 4px; }
+.mobile-menu { display: none; position: fixed; top: calc(60px + env(safe-area-inset-top)); left: 0; right: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); padding: 18px var(--pad) 26px; border-bottom: 1px solid var(--grey-100); z-index: 499; flex-direction: column; gap: 4px; }
 .mobile-menu a { display: block; padding: 11px 0; text-decoration: none; color: var(--ink); font-size: 0.9375rem; border-bottom: 1px solid var(--grey-100); }
 .mobile-menu .btn { width: 100%; margin-top: 14px; justify-content: center; }
 
@@ -130,7 +132,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 400; }
 
 /* ── HERO ── */
 #hero {
-  padding-top: 124px; padding-bottom: 64px;
+  padding-top: calc(124px + env(safe-area-inset-top)); padding-bottom: 64px;
   display: grid; grid-template-columns: 1fr 1fr; gap: 52px;
   align-items: center; min-height: 100svh;
   position: relative; overflow: hidden;
@@ -1006,7 +1008,7 @@ footer { background: #0f0f0e; color: rgba(255,255,255,0.4); padding: 52px var(--
   body { cursor: auto; }
   .cursor, .cursor-ring { display: none; }
   section { padding: 64px clamp(20px,5%,40px); }
-  #hero { grid-template-columns: 1fr; padding-top: 100px; gap: 40px; min-height: auto; }
+  #hero { grid-template-columns: 1fr; padding-top: calc(100px + env(safe-area-inset-top)); gap: 40px; min-height: auto; }
   .hero-visual { display: none; }
   .services-head { grid-template-columns: 1fr; gap: 14px; }
   .work-head { flex-direction: column; align-items: flex-start; gap: 18px; }
