@@ -58,10 +58,9 @@ body::after {
 }
 
 /* ── CURSOR ── */
-.cursor { width: 8px; height: 8px; background: var(--ink); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.12s var(--ease), width 0.25s var(--ease), height 0.25s var(--ease), background 0.25s; transform: translate(-50%,-50%); }
-.cursor-ring { width: 30px; height: 30px; border: 1.5px solid rgba(22,22,20,0.18); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.38s var(--ease), width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.25s; transform: translate(-50%,-50%); }
-.cursor.hov { width: 12px; height: 12px; background: var(--accent); }
-.cursor-ring.hov { width: 44px; height: 44px; border-color: rgba(91,106,240,0.22); }
+.cursor { width: 6px; height: 6px; background: var(--ink); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); will-change: left, top; }
+.cursor-ring { width: 28px; height: 28px; border: 1px solid rgba(22,22,20,0.14); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: width 0.3s var(--ease), height 0.3s var(--ease), border-color 0.3s, opacity 0.3s; transform: translate(-50%,-50%); will-change: left, top; }
+.cursor-ring.hov { width: 36px; height: 36px; border-color: rgba(22,22,20,0.22); }
 
 /* ── NAVBAR ── */
 nav {
@@ -78,7 +77,7 @@ nav.scrolled { border-color: rgba(0,0,0,0.08); background: rgba(255,255,255,0.92
 
 .nav-logo { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--ink); flex-shrink: 0; }
 .logo-mark { width: 30px; height: 30px; background: var(--ink); border-radius: 8px; display: grid; place-items: center; transition: transform 0.3s var(--ease), box-shadow 0.3s; }
-.nav-logo:hover .logo-mark { transform: rotate(-7deg) scale(1.06); box-shadow: 0 4px 14px rgba(22,22,20,0.25); }
+.nav-logo:hover .logo-mark { transform: rotate(-3deg); box-shadow: 0 3px 10px rgba(22,22,20,0.18); }
 .logo-mark svg { width: 16px; height: 16px; }
 .logo-text { font-weight: 600; font-size: 1.0375rem; letter-spacing: -0.03em; }
 
@@ -96,23 +95,21 @@ nav.scrolled { border-color: rgba(0,0,0,0.08); background: rgba(255,255,255,0.92
   cursor: none; text-decoration: none; border: none;
   letter-spacing: -0.01em; white-space: nowrap; line-height: 1;
   position: relative; overflow: hidden;
-  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease), background 0.18s, color 0.18s, border-color 0.18s;
+  transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), background 0.18s, color 0.18s, border-color 0.18s;
 }
-.btn::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0); transition: background 0.2s; border-radius: inherit; pointer-events: none; }
-.btn:hover::after { background: rgba(255,255,255,0.07); }
 .btn-primary { background: var(--ink); color: var(--white); box-shadow: 0 1px 3px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.1); }
-.btn-primary:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 28px rgba(22,22,20,0.22); }
-.btn-primary:active { transform: translateY(0) scale(0.99); }
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(22,22,20,0.18); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 1px 3px rgba(0,0,0,0.18); }
 .btn-ghost { background: transparent; color: var(--grey-400); border: 1px solid var(--grey-200); }
 .btn-ghost:hover { color: var(--ink); border-color: var(--grey-300); background: var(--off-white); transform: translateY(-1px); }
 .btn-outline { background: transparent; color: var(--ink); border: 1.5px solid var(--grey-200); }
-.btn-outline:hover { border-color: var(--ink); background: var(--off-white); transform: translateY(-1.5px); }
+.btn-outline:hover { border-color: var(--ink); background: var(--off-white); transform: translateY(-1px); }
 .btn-white { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.18); }
-.btn-white:hover { background: var(--off-white); transform: translateY(-1.5px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.btn-white:hover { background: var(--off-white); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,0.14); }
 .btn-ghost-white { background: transparent; color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.15); }
 .btn-ghost-white:hover { color: var(--white); border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.07); }
 .btn-accent { background: var(--accent); color: var(--white); box-shadow: 0 1px 3px rgba(91,106,240,0.3), inset 0 1px 0 rgba(255,255,255,0.15); }
-.btn-accent:hover { transform: translateY(-2px) scale(1.01); box-shadow: 0 10px 32px rgba(91,106,240,0.35); }
+.btn-accent:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(91,106,240,0.28); }
 .btn-lg { padding: 13px 28px; font-size: 0.9rem; }
 
 /* ── HAMBURGER ── */
@@ -2151,8 +2148,8 @@ const cur = document.getElementById('cur');
 const curRing = document.getElementById('curRing');
 let mx=0,my=0,rx=0,ry=0;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-(function tick(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;cur.style.left=mx+'px';cur.style.top=my+'px';curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(tick);})();
-document.querySelectorAll('a,button,.wcard,.svc-card,.tcard,.form-submit,.logo-pill').forEach(el=>{el.addEventListener('mouseenter',()=>{cur.classList.add('hov');curRing.classList.add('hov');});el.addEventListener('mouseleave',()=>{cur.classList.remove('hov');curRing.classList.remove('hov');});});
+(function tick(){rx+=(mx-rx)*0.28;ry+=(my-ry)*0.28;cur.style.left=mx+'px';cur.style.top=my+'px';curRing.style.left=rx+'px';curRing.style.top=ry+'px';requestAnimationFrame(tick);})();
+document.querySelectorAll('a,button,.wcard,.svc-card,.tcard,.form-submit,.logo-pill').forEach(el=>{el.addEventListener('mouseenter',()=>{curRing.classList.add('hov');});el.addEventListener('mouseleave',()=>{curRing.classList.remove('hov');});});
 
 // ── Navbar scroll
 const navbar=document.getElementById('navbar');
